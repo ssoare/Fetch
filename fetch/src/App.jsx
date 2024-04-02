@@ -20,7 +20,7 @@ function App() {
     <>
       <section className='flex flex-wrap gap-8 p-4'>
         {pokemon.map((poke, index) => (
-          <article key={index} className='border-2 w-60 p-4 rounded-xl shadow-md shadow-black group transition cursor-pointer'>
+          <article key={index} className='border-2 w-60 p-4 rounded-xl shadow-lg shadow-black group transition cursor-pointer'>
             <img className='size-40 drop-shadow-soare group-hover:scale-150 transition mx-auto mb-12' 
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg`} 
               alt={`Imagen de ${poke.name}`} />
