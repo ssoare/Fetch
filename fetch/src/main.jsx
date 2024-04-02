@@ -7,7 +7,7 @@ import Header from './components/header.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Header />
-    <main className='mt-12'>
+    <main className='mt-16'>
       <App />
     </main>
   </React.StrictMode>,
