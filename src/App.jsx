@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 
 function App() {
   const [pokemon, setPokemon] = useState([])
+  const [limit, setLimit] = useState(20)
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon')
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
       .then(res => res.json())
       .then(data => {
         const pokemonPromises = data.results.map(poke =>
@@ -14,7 +15,7 @@ function App() {
         Promise.all(pokemonPromises)
           .then(pokemonDetails => setPokemon(pokemonDetails));
       })
-  }, [])
+  }, [ limit ])
 
   return (
     <>
@@ -55,6 +56,13 @@ function App() {
           </article>
         ))}
       </section>
+        <button onClick={() => {
+          setLimit(limit + 20)
+          console.log(limit)
+        }} 
+                className='text-center text-xl font-semibold border-2 py-2 px-4 my-8 mx-auto block rounded-xl border-black hover:bg-gray-300'>
+                Ver más
+        </button>
     </>
   )
 }
