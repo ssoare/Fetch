@@ -51,10 +51,10 @@ function App() {
           <article key={index} className='border-2 w-60 p-4 rounded-xl shadow-lg shadow-black group transition cursor-pointer'>
             <img
               className='size-40 drop-shadow-soare group-hover:scale-150 transition mx-auto mb-12'
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${poke.id}.svg`}
               alt={`Imagen de ${poke.name}`}
             />
-            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{index + 1} <span className='capitalize'>{poke.name}</span></h2>
+            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{poke.id} <span className='capitalize'>{poke.name}</span></h2>
             <div className='flex flex-wrap justify-center'>
               {poke.types?.map(type => (
                 <span key={type.slot} className={`px-2 py-1 mr-2 rounded-full text-xs font-semibold capitalize ${typeColors[type.type.name]}`}>
