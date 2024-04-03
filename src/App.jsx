@@ -3,6 +3,23 @@ import { useState, useEffect } from 'react'
 function App() {
   const [pokemon, setPokemon] = useState([])
   const [limit, setLimit] = useState(20)
+  const typeColors = {
+    electric: 'bg-yellow-500',
+    normal:   'bg-gray-500',
+    fire:     'bg-red-500',
+    water:    'bg-blue-500',
+    ice:      'bg-blue-500',
+    rock:     'bg-yellow-500',
+    flying:   'bg-blue-500',
+    grass:    'bg-green-500',
+    poison:   'bg-green-500',
+    ghost:    'bg-purple-500',
+    bug:      'bg-green-500',
+    dragon:   'bg-purple-500',
+    steel:    'bg-gray-500',
+    fighting: 'bg-red-500',
+    default:  'bg-gray-500'
+  }
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
@@ -19,36 +36,21 @@ function App() {
 
   return (
     <>
+      <input className='border-2 border-black p-2 rounded-xl text-xl font-semibold block mx-auto outline-none focus:border-red-500 transition' 
+              type="search" 
+              placeholder='Search for a Pokemon...' />
       <section className='flex flex-wrap gap-8 p-4'>
         {pokemon.map((poke, index) => (
           <article key={index} className='border-2 w-60 p-4 rounded-xl shadow-lg shadow-black group transition cursor-pointer'>
             <img className='size-40 drop-shadow-soare group-hover:scale-150 transition mx-auto mb-12' 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg`} 
-              alt={`Imagen de ${poke.name}`} />
-            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{index + 1} <span className=' capitalize'>{poke.name}</span></h2>
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg`} 
+                  alt={`Imagen de ${poke.name}`} />
+            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{index + 1} 
+              <span className=' capitalize'>{poke.name}</span>
+            </h2>
             <div className='flex flex-wrap justify-center'>
               {poke.types?.map(type => (
-                <span key={type.slot} className={`px-2 py-1 mr-2 rounded-full text-xs font-semibold capitalize 
-                  ${type.type.name === 'poison' ? 'bg-green-500 text-white' :
-                    type.type.name === 'fire' ? 'bg-red-500 text-white' : 
-                    type.type.name === 'water' ? 'bg-blue-500 text-white' : 
-                    type.type.name === 'electric' ? 'bg-yellow-500 text-white' : 
-                    type.type.name === 'grass' ? 'bg-green-500 text-white' :
-                    type.type.name === 'water' ? 'bg-blue-500 text-white' :
-                    type.type.name === 'ground' ? 'bg-yellow-500 text-white' :
-                    type.type.name === 'flying' ? 'bg-blue-500 text-white' :
-                    type.type.name === 'bug' ? 'bg-green-500 text-white' :
-                    type.type.name === 'normal' ? 'bg-gray-500 text-white' :
-                    type.type.name === 'fighting' ? 'bg-red-500 text-white' :
-                    type.type.name === 'psychic' ? 'bg-purple-500 text-white' :
-                    type.type.name === 'rock' ? 'bg-yellow-500 text-white' :
-                    type.type.name === 'ghost' ? 'bg-purple-500 text-white' :
-                    type.type.name === 'ice' ? 'bg-blue-500 text-white' :
-                    type.type.name === 'dragon' ? 'bg-purple-500 text-white' :
-                    type.type.name === 'dark' ? 'bg-gray-500 text-white' :
-                    type.type.name === 'steel' ? 'bg-gray-500 text-white' :
-                    type.type.name === 'fairy' ? 'bg-pink-500 text-white' :
-                    'bg-gray-500 text-white'}`}>
+                <span key={type.slot} className={`px-2 py-1 mr-2 rounded-full text-xs font-semibold capitalize ${typeColors[type.type.name]}`}> 
                   {type.type.name}
                 </span>
               ))}
@@ -57,11 +59,11 @@ function App() {
         ))}
       </section>
         <button onClick={() => {
-          setLimit(limit + 20)
-          console.log(limit)
-        }} 
-                className='text-center text-xl font-semibold border-2 py-2 px-4 my-8 mx-auto block rounded-xl border-black hover:bg-gray-300'>
-                Ver más
+            setLimit(limit + 20)
+            console.log(limit)
+            }} 
+          className='text-center text-xl font-semibold border-2 py-2 px-4 my-8 mx-auto block rounded-xl border-black hover:bg-gray-300'>
+          Ver más
         </button>
     </>
   )
