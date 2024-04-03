@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function App() {
+export default function App() {
   const [pokemon, setPokemon] = useState([]);
   const [search, setSearch] = useState('');
   const typeColors = {
@@ -20,10 +20,12 @@ function App() {
     fighting: 'bg-red-500',
     default: 'bg-gray-500',
   };
+  const [offset, setOffset] = useState(0)
+  let limit = 10
 
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
       .then(res => res.json())
       .then(data => {
         const pokemonPromises = data.results.map(poke =>
@@ -33,7 +35,7 @@ function App() {
         Promise.all(pokemonPromises)
           .then(pokemonDetails => setPokemon(pokemonDetails));
       });
-  }, []);
+  }, [offset, limit]);
 
   const filteredPokemon = pokemon.filter(poke =>
     poke.name.toLowerCase().includes(search.toLowerCase())
@@ -66,8 +68,17 @@ function App() {
           </article>
         ))}
       </section>
+      <section className='flex justify-center gap-4 my-8'>
+        <button onClick={
+          (offset > 0) ? () => setOffset(offset - 10) : () => setOffset(0)
+        }
+          className='border-2 py-2 px-4 rounded-xl border-black'>Prev</button>
+          <button className='border-2 py-2 px-4 rounded-xl border-black'>{offset / 10 + 1}</button>
+        <button onClick = {
+          (offset < 1000) ? () => setOffset(offset + 10) : () => setOffset(offset)
+        }
+          className='border-2 py-2 px-4 rounded-xl border-black'>Next</button>
+      </section>
     </>
   );
 }
-
-export default App;
