@@ -21,7 +21,8 @@ export default function App() {
     default: 'bg-gray-500',
   };
   const [offset, setOffset] = useState(0)
-  let limit = 10
+  const [limit, setLimit] = useState(10)
+  const searchChange = 
 
 
   useEffect(() => {
@@ -40,12 +41,24 @@ export default function App() {
   const filteredPokemon = pokemon.filter(poke =>
     poke.name.toLowerCase().includes(search.toLowerCase())
   );
+  const pagination = document.querySelector('#pagination')
 
   return (
     <>
       <input
         className='border-2 border-black p-2 rounded-xl text-xl font-semibold block mx-auto outline-none focus:border-red-500 transition'
-        onChange={e => setSearch(e.target.value)}
+        onChange={e => {
+          setSearch(e.target.value);
+          e.target.value !== '' 
+            ? (
+                pagination.classList.add('hidden'),
+                setLimit(1000)
+              )
+            : (
+                pagination.classList.remove('hidden'),
+                setLimit(10)
+              );
+        }}
         type="search"
         placeholder='Search for a Pokemon...'
       />
@@ -68,7 +81,8 @@ export default function App() {
           </article>
         ))}
       </section>
-      <section className='flex justify-center gap-4 my-8'>
+      <section id = 'pagination'
+        className='flex justify-center gap-4 my-8'>
         <button onClick={
           (offset > 0) ? () => setOffset(offset - 10) : () => setOffset(0)
         }
