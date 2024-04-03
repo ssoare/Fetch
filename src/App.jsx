@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 function App() {
   const [pokemon, setPokemon] = useState([])
-  const [limit, setLimit] = useState(20)
+  const [search, setSearch] = useState('')
   const typeColors = {
     electric: 'bg-yellow-500',
     normal:   'bg-gray-500',
@@ -37,6 +37,7 @@ function App() {
   return (
     <>
       <input className='border-2 border-black p-2 rounded-xl text-xl font-semibold block mx-auto outline-none focus:border-red-500 transition' 
+              onChange={e => setSearch(e.target.value)}
               type="search" 
               placeholder='Search for a Pokemon...' />
       <section className='flex flex-wrap gap-8 p-4'>
@@ -45,9 +46,7 @@ function App() {
             <img className='size-40 drop-shadow-soare group-hover:scale-150 transition mx-auto mb-12' 
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg`} 
                   alt={`Imagen de ${poke.name}`} />
-            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{index + 1} 
-              <span className=' capitalize'>{poke.name}</span>
-            </h2>
+            <h2 className='capitalize text-center text-xl font-semibold group-hover:text-red-500 transition mb-4'>#{index + 1} <span className='capitalize'>{poke.name}</span></h2>
             <div className='flex flex-wrap justify-center'>
               {poke.types?.map(type => (
                 <span key={type.slot} className={`px-2 py-1 mr-2 rounded-full text-xs font-semibold capitalize ${typeColors[type.type.name]}`}> 
@@ -58,13 +57,6 @@ function App() {
           </article>
         ))}
       </section>
-        <button onClick={() => {
-            setLimit(limit + 20)
-            console.log(limit)
-            }} 
-          className='text-center text-xl font-semibold border-2 py-2 px-4 my-8 mx-auto block rounded-xl border-black hover:bg-gray-300'>
-          Ver más
-        </button>
     </>
   )
 }
